@@ -3,11 +3,13 @@ package main;
 
 import static java.util.Objects.isNull;
 
-public class NotNullVerification implements Verification {
+public class NotNullCondition implements Verification {
     public boolean verify(String password) {
         if (isNull(password) || password.isEmpty()) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }
+
+

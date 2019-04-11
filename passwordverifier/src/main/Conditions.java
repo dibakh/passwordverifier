@@ -7,18 +7,18 @@ import java.util.List;
 public class Conditions {
     private static List<Verification> verifier =
             Arrays.asList(
-                    new LongerThan8CharVerification(),
-                    new UppercaseVerification(),
-                    new LowercaseVerification(),
-                    new NumberVerification()
+                    new LongerThan8CharCondition(),
+                    new UppercaseCondition(),
+                    new LowercaseCondition(),
+                    new NumberCondition()
             );
-    private static NotNullVerification nullOrEmptyVerifier = new NotNullVerification();
+    private static NotNullCondition nullOrEmptyVerifier = new NotNullCondition();
 
     public static List<Verification> asList() {
         return new ArrayList<>(verifier);
     }
 
-    public static NotNullVerification getNullCondition() {
+    public static NotNullCondition getNullCondition() {
         return nullOrEmptyVerifier;
     }
 

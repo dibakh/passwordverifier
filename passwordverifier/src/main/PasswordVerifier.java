@@ -4,52 +4,55 @@ import java.util.List;
 
 public class PasswordVerifier {
 
-    private List<Verification> verifications = Conditions.asList();
-    private NotNullVerification nullCondition = Conditions.getNullCondition();
+  public static final int minimumValidConditions = 1;
 
-    public boolean verifyAllCOnditionsTrue(String password) {
+  private List<Verification> verifications = Conditions.asList();
+  private NotNullCondition notNullCondition = Conditions.getNullCondition();
 
-        if (nullCondition.verify(password)) {
-            return false;
-        }
+  public boolean verifyAllCOnditionsTrue(String password) {
 
-        return getNumberOfValidConditions(password) == verifications.size();
-
+    if (!notNullCondition.verify(password)) {
+      return false;
     }
 
-    public boolean verify3TrueConditions(String password) {
+    return getNumberOfValidConditions(password) == verifications.size();
 
-        if (nullCondition.verify(password)) {
-            return false;
-        }
+  }
 
-        return getNumberOfValidConditions(password) > 1;
+  public boolean verify3TrueConditions(String password) {
 
+    if (!notNullCondition.verify(password)) {
+      return false;
     }
 
-    public boolean verify3TrueConditionsAndOneLowercaseChar(String password) {
+    return getNumberOfValidConditions(password) > minimumValidConditions;
 
-        if (nullCondition.verify(password)) {
-            return false;
-        }
+  }
 
-        return result(password);
+  public boolean verify3TrueConditionsAndOneLowercaseChar(String password) {
 
+    if (!notNullCondition.verify(password)) {
+      return false;
     }
 
-    public long getNumberOfValidConditions(String password) {
-        return verifications.stream()
-                .filter(e -> e.verify(password))
-                .count();
-    }
+    return result(password);
 
-    public boolean hasAtLeastOneLowercaseLetter(String password) {
-        Verification numberVerification = verifications.get(2);
-        return numberVerification.verify(password);
-    }
+  }
 
-    public boolean result(String password) {
-        return getNumberOfValidConditions(password) > 1 && hasAtLeastOneLowercaseLetter(password);
-    }
+  public long getNumberOfValidConditions(String password) {
+    return verifications.stream()
+                        .filter(e -> e.verify(password))
+                        .count();
+  }
+
+  public boolean hasAtLeastOneLowercaseLetter(String password) {
+    Verification numberVerification = new NumberCondition();
+    return numberVerification.verify(password);
+  }
+
+  public boolean result(String password) {
+    return getNumberOfValidConditions(password) > minimumValidConditions
+        && hasAtLeastOneLowercaseLetter(password);
+  }
 
 }

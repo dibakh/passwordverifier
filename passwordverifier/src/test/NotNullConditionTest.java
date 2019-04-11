@@ -1,6 +1,6 @@
 package test;
 
-import main.NumberVerification;
+import main.NotNullCondition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -8,23 +8,21 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-class NumberVerificationTest {
+class NotNullConditionTest {
 
-    private NumberVerification verification = new NumberVerification();
+    private NotNullCondition verification = new NotNullCondition();
 
-    static Stream hasNumber() {
+    static Stream isNotNull() {
         return Stream.of(
-                Arguments.of(false, "A"),
-                Arguments.of(false, "a"),
-                Arguments.of(true, "4567890"),
-                Arguments.of(true, "1a"),
-                Arguments.of(false, "(*&^%$#")
+                Arguments.of(false, null),
+                Arguments.of(false, new String()),
+                Arguments.of(false, "")
         );
     }
 
 
     @ParameterizedTest
-    @MethodSource("hasNumber")
+    @MethodSource("isNotNull")
     void verifyAtLeast3ConditionsAnd4thTrue(boolean expected, String password) {
         boolean actual = verification.verify(password);
 
