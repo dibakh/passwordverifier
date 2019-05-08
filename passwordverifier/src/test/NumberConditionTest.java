@@ -25,7 +25,6 @@ class NumberConditionTest {
     );
   }
 
-
   @ParameterizedTest
   @MethodSource("hasNumber")
   void verifyAtLeast3ConditionsAnd4thTrue(boolean expected, String password) {

@@ -15,11 +15,10 @@ class NotNullConditionTest {
     static Stream isNotNull() {
         return Stream.of(
                 Arguments.of(false, null),
-                Arguments.of(false, new String()),
-                Arguments.of(false, "")
+                Arguments.of(true, ""),
+                Arguments.of(true, "hello")
         );
     }
-
 
     @ParameterizedTest
     @MethodSource("isNotNull")
@@ -28,5 +27,4 @@ class NotNullConditionTest {
 
         Assertions.assertEquals(expected, actual);
     }
-
 }
