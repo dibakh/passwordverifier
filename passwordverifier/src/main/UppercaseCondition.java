@@ -8,16 +8,13 @@ public class UppercaseCondition implements Verification {
 
   @Override
   public boolean verify(String password) {
-
-    if (!notNullCondition.verify(password)) {
-      return false;
-    }
-
-    return password.chars()
-                   .anyMatch(e -> isUpperCase(e));
-
+    return password != null && containsOneLowercaseLetter(password);
   }
 
+  private boolean containsOneLowercaseLetter(String password) {
+    return password.chars()
+                   .anyMatch(e -> isUpperCase(e));
+  }
 }
 
 

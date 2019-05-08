@@ -3,17 +3,16 @@ package main;
 import java.util.stream.Stream;
 
 public class NumberCondition implements Verification {
-  private NotNullCondition notNullCondition = Conditions.getNullCondition();
 
+  public static final String NUMBER = ".*\\d.*";
 
   @Override
   public boolean verify(String password) {
-    if (!notNullCondition.verify(password)) {
-      return false;
-    }
+    return password != null && containsOneNumber(password);
+  }
 
+  private boolean containsOneNumber(String password) {
     return Stream.of(password)
-                 .anyMatch(e -> e.matches(".*\\d.*"));
-
+                 .anyMatch(e -> e.matches(NUMBER));
   }
 }

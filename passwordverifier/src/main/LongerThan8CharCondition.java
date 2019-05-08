@@ -2,15 +2,10 @@ package main;
 
 public class LongerThan8CharCondition implements Verification {
 
-  public static final int minimumPasswordLength = 8;
-
-  private NotNullCondition notNullCondition = Conditions.getNullCondition();
+  public static final int MINIMUM_PASSWORD_LENGTH = 8;
 
   @Override
   public boolean verify(String password) {
-    if (!notNullCondition.verify(password)) {
-      return false;
-    }
-    return password.length() > minimumPasswordLength;
+    return password != null && password.length() > MINIMUM_PASSWORD_LENGTH;
   }
 }
